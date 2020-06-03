@@ -13,6 +13,17 @@ soup = BeautifulSoup(data.text, 'html.parser')
 
 movies=soup.select('#old_content > table > tbody > tr')
 ##old_content > table > tbody > tr:nth-child(2) > td.title > div > a
+#old_content > table > tbody > tr:nth-child(2) > td:nth-child(1) > img
+#old_content > table > tbody > tr:nth-child(2) > td.point
 for movie in movies:
-    a_tag=movie.select_one('td.title > div > a')
-    print(a_tag)
+    a_tag=movie.select_one('td.title > div > a')        
+    # num=movie.select_one('td:nth-child(1) > img')
+
+    # if a_tag != None:    # 유식한코드 a_tag is not none: 왼쪽거랑 똑같은 코드야
+    
+    print(a_tag.text)
+    
+
+
+   
+ 
