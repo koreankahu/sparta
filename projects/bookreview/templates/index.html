@@ -34,26 +34,24 @@
         });
 
         function make_review() {
+            // 1. 제목, 저자, 리뷰 내용을 가져옵니다.
+            // 2. 제목, 저자, 리뷰 중 하나라도 입력하지 않았을 경우 alert를 띄웁니다.
+            // 3. POST /reviews 에 저장을 요청합니다.
             let title = $('#title').val();
             let author = $('#author').val();
             let review = $('#review').val();
 
-            if (title==''){
-                alert('제목을입력해주세요')
+            if (title == '') {
+                alert('제목을 입력하세요')
                 return
-            } else if(author == ''){
-                alert('저자를 입력해주세요')
+            } else if (author == ''){
+                alert('저자를 입력하세요')
                 return
-            } else if(review == ''){
-                alert('리뷰를 입력해주세요')
+            } else if(review == '') {
+                alert('리뷰를 입력하세요')
                 return
             }
-
-            // 1. 제목, 저자, 리뷰 내용을 가져옵니다.
-            // 2. 제목, 저자, 리뷰 중 하나라도 입력하지 않았을 경우 alert를 띄웁니다.
-            // 3. POST /reviews 에 저장을 요청합니다.
-
-            
+           
             $.ajax({
                 type: 'POST', // 타입을 작성합니다.
                 url: '/reviews', // url을 작성합니다.
@@ -65,6 +63,8 @@
                     }
                 }
             });
+
+            
         }
 
         function listing() {
@@ -78,19 +78,23 @@
                 success: function (response) {
                     if (response['result'] == 'success') {
 
-                        let reviews = response['all_review'];
+                        let reviews = response['all_review']
                         for (let i = 0; i < reviews.length; i++){
                             let title = reviews[i]['title']
                             let author = reviews[i]['author']
                             let review = reviews[i]['review']
+                            
+                            let temp_html=`
+                                <tr>
+                                    <td>${title}</td>
+                                    <td>${author}</td>
+                                    <td>${review}</td>
+                                </tr>
+                            `  
+                            $('#orders-box').append(temp_html)
 
-                            let temp_html=` <tr>
-                                                <td>${title}</td>
-                                                <td>${author}</td>
-                                                <td>${review}</td>
-                                            </tr>`
-                           $('#orders-box').append(temp_html)
-                        } 
+                        }
+
                     } else {
                         alert('리뷰를 받아오지 못했습니다');
                     }
