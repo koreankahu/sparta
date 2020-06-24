@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>아우디 q8 팝니다.</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        * {
+            font-family: 'Black And White Picture', sans-serif;
+        }
+
+        .wrap {
+            width: 600px;
+            margin: 50px auto auto auto;
+
+        }
+
+        .description {
+            font-size: 15px;
+        }
+
+        .imgstyle {
+            background-image: url("http://blogfiles.naver.net/MjAyMDA1MTlfMTI1/MDAxNTg5ODk4OTg5NDQy.nuRpfx7wLpKNoUoxs8ZtBgLzPjR78CwUnW9eHu3iLX4g.lnpRcv_eOpTXX_hBBtPN2ZX9pRZD4WcXPSP-gTEdE18g.JPEG.vkfah12/3.jpg");
+            background-position: center;
+            background-size: cover;
+            width: 600px;
+            height: 400px;
+            margin: 50px auto auto auto;
+        }
+
+        .array {
+            width: 400px;
+            margin: auto;
+        }
+
+        .psize {
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        .dallar {
+            color: blue;
+            margin-bottom:10px;
+        }
+    </style>
+
+    <script>
+        function button1_click() {
+            if ($('#order_Click').val() == '') {
+                alert('성함을 입력하세요');
+            } else if ($('#choice').val() == '') {
+                alert('수량을 선택하세요')
+            } else if ($('#adrress').val() == '') {
+                alert('주소를 입력하세요')
+            } else if ($('#tel_num').val() == '') {
+                alert('전화번호를 입력하세요')
+            } else {
+                alert("주문이 완료 되었습니다.");
+            }
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    let exch = response[1]['rate'];
+
+                    
+                    $('#wd').text(exch);
+
+                }
+            })
+        });
+
+    </script>
+</head>
+
+<body>
+
+    <div class="imgstyle"></div>
+    <div class="wrap">
+        <div>
+            <h3>아우디Q8 콰트로 풀옵 <span class="description">가격:120,000,000원/개</span></h3>
+        </div>
+        <div class="dallar" > 달러-원 환율 : <span id="wd">1000</span> </div>
+
+        <div>
+            이상품으로 말할것 같으면 용왕이 찾지 못한 토끼의 간을 찾아 빨간 망토의 늑대와 아기돼지 삼형제의 숨결이 고루 녹아있는 먹으면 120세 까지 살수잇따는 이상품으로 말할것 같으면 용왕이 찾지 못한
+            토끼의
+            간을 찾아 빨간 망토의 늑대와 아기돼지
+        </div>
+
+        <div>
+            <h3>주문하기</h3>
+        </div>
+        <div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">주문자 성함:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="order_Click" placeholder="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">수량:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="choice">
+                        <option selected value=''>--- 수량을 선택하세요 ---</option>
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">주소:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="adrress" placeholder="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">전화번호:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="tel_num" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="form-group array">
+            <button type="button" class="btn btn-outline-secondary psize" id="button1"
+                onclick="button1_click();">주문하기</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
