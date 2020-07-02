@@ -67,20 +67,18 @@
             }
         }
 
-        $(document).ready(function () {
-            $.ajax({
-                type: "GET",
-                url: "https://api.manana.kr/exchange/rate.json",
-                data: {},
-                success: function (response) {
-                    let exch = response[1]['rate'];
-
-                    
-                    $('#wd').text(exch);
-
-                }
-            })
-        });
+        $.ajax({
+        type: "POST",
+        url: "/orders",
+        data: { orderName_give: orderName, orderSelect_give: orderSelect, orderAddress_give: orderAddress, orderPhone_give: orderPhone },
+        success: function (response) {
+          if (response['result'] == 'success') {
+            alert(response['msg']);
+            window.location.reload();
+          }
+        }
+      })
+    
 
     </script>
 </head>
