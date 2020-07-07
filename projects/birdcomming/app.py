@@ -41,5 +41,15 @@ def get_message():
     return jsonify({'result': 'success', 'messages':messages})
 
 
+@app.route('/message', methods=["POST"])
+def edit_message():
+    username_receive = request.form['username_give']
+    contents_receive = request.form['contents_give']
+
+    db.messages.update_one({'username':username_receive}, {'$set':{'contents':contents_receive, 'created_at':datetime.now()}})
+
+    return jsonify({'result': 'success', 'msg': '메시지 작성에 성공하였습니다!'})
+
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

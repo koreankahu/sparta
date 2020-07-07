@@ -129,7 +129,7 @@
             </div>`;
         }
 
-        function editPost(username){ 
+        function editPost(username) {
             // username이 일치하는 메모에 수정 입력칸을 보여준다
             showEdits(username);
             //기존메모내용을 가져온다
@@ -140,7 +140,7 @@
 
         }
 
-        function showEdits(username){
+        function showEdits(username) {
             //수정 입력 칸, 수정완료 버큰, 취소 버튼을 보여준다.
             $(`#${username}-textarea`).show();
             $(`#${username}-submit`).show();
@@ -150,6 +150,42 @@
             $(`#${username}-contents`).hide();
             $(`#${username}-edit`).hide();
         }
+
+        function hideEdits(username) {
+            //수정입력칸 수정완료 버튼, 취소 버튼 숨기고, 수정버튼을 보여준다
+            $(`#${username}-textarea`).hide();
+            $(`#${username}-cancel`).hide();
+            $(`#${username}-submit`).hide();
+
+            //메모내용 , 수정보튼 보여둔다.
+            $(`#${username}-contents`).show();
+            $(`#${username}-edit`).show();
+        }
+
+        function submitEdit(username) {
+            // 수정된 메모 내용을 가져오고 올바른지 검사한다.
+            let contents = $(`#${username}-textarea`).val();
+            if (isValidContents(contents) == false) {
+                return;
+            }
+
+            // 메모 내용 수정을 서버에 요청한다.
+            $.ajax({
+                type: "POST",
+                url: "/message",
+                data: { username_give: username, contents_give: contents },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert(response['msg']);
+                        // 변경된 메모를 보기 위해 창을 새로고침한다.
+                        window.location.reload();
+                    } else {
+                        alert('메시지 변경에 실패했습니다.');
+                    }
+                }
+            });
+        }
+
 
     </script>
 
